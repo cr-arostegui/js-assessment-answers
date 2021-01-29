@@ -24,11 +24,37 @@ exports.recursionAnswers = {
   },
 
   permute: function(arr) {
+    let permutations = [];
+
+    let getPermutations = function (arr, index) {
+      let pivotIndex = index;
+      var pivotValue = arr[pivotIndex];
+      
+      if (pivotIndex === arr.length - 1) {
+        permutations.push(arr);
+      }
+
+      for (let i = pivotIndex; i < arr.length; i++) {
+        var newArr = arr.slice();
+        newArr[pivotIndex] = arr[i];
+        newArr[i] = pivotValue;
+
+        getPermutations(newArr, pivotIndex + 1);
+      }
+    }
+
+    getPermutations(arr, 0);
+    return permutations;
 
   },
 
   fibonacci: function(n) {
 
+    if (n <= 1) {
+      return n;
+    }
+
+    return this.fibonacci(n-1) + this.fibonacci(n-2);
   },
 
   validParentheses: function(n) {
